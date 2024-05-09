@@ -3,8 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: visits-service
-  name: visits-service
+    app: visits-deploy
+  name: visits-deploy
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1

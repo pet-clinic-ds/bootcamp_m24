@@ -3,8 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: vets-service
-  name: vets-service
+    app: vets-deploy
+  name: vets-deploy
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1

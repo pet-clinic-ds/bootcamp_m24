@@ -3,8 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: api-gateway
-  name: api-gateway
+    app: api-gateway-deploy
+  name: api-gateway-deploy
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1

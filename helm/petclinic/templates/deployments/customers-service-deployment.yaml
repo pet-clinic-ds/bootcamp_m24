@@ -4,8 +4,8 @@ kind: Deployment
 metadata:
   annotations:
   labels:
-    app: customers-service
-  name: customers-service
+    app: customers-deploy
+  name: customers-deploy
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
