@@ -1,7 +1,7 @@
 # Default values for petclinic.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-namespace: &ns spring-petclinic  # create a variable ns that contains the  value of the namespace
+namespace: &ns spring-petclinic-dev  # create a variable ns that contains the  value of the namespace
 replicaCount: 1
 repositoryprefix: springcommunity 
 
@@ -11,7 +11,7 @@ vets-db-mysql:
   namespaceOverride: *ns  # get the value of the namespace
   primary:
     persistence:
-      size: 500Mi
+      size: 128Mi
 
 visits-db-mysql:
   auth:
@@ -19,7 +19,7 @@ visits-db-mysql:
   namespaceOverride: *ns  # get the value of the namespace
   primary:
     persistence:
-      size: 500Mi
+      size: 128Mi
 
 customers-db-mysql:
   auth:
@@ -27,8 +27,14 @@ customers-db-mysql:
   namespaceOverride: *ns  # get the value of the namespace
   primary:
     persistence:
-      size: 500Mi
+      size: 128Mi
 
+resources:
+  limits:
+    memory: 1Gi
+  requests:
+    cpu: 250m
+    memory: 1Gi
 
 livenessProbe:
   httpGet:
@@ -47,13 +53,6 @@ lifecycle:
   preStop:
     exec:
       command: ["sh", "-c", "sleep 10"]
-
-resources:
-  limits:
-    memory: 1Gi
-  requests:
-    cpu: 500m
-    memory: 250Mi
 
 service:
   ports:
