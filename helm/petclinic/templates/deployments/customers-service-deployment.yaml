@@ -12,7 +12,6 @@ spec:
   selector:
     matchLabels:
       app: customers-service
-  strategy: {}
   template:
     metadata:
       labels:
@@ -23,16 +22,9 @@ spec:
         name: customers-service
         imagePullPolicy: Always
         livenessProbe:
-          httpGet:
-            port: 8080
-            path: /actuator/health/liveness
-          initialDelaySeconds: 90
-          periodSeconds: 5
+          {{- toYaml .Values.livenessProbe | nindent 12 }}
         readinessProbe:
-          httpGet:
-            port: 8080
-            path: /actuator/health/readiness
-          initialDelaySeconds: 15
+          {{- toYaml .Values.readinessProbe | nindent 12 }}
         lifecycle:
           preStop:
             exec:
@@ -59,6 +51,4 @@ spec:
           value: proxy://wavefront-proxy.spring-petclinic.svc.cluster.local:2878
         ports:
         - containerPort: 8080
-        resources: {}
       restartPolicy: Always
-status: {}
