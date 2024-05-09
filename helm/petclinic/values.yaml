@@ -3,6 +3,8 @@
 # Declare variables to be passed into your templates.
 namespace: &ns spring-petclinic  # create a variable ns that contains the  value of the namespace
 
+repositoryprefix: springcommunity 
+
 vets-db-mysql:
   auth:
     database: service_instance_db
@@ -18,7 +20,6 @@ customers-db-mysql:
     database: service_instance_db   
   namespaceOverride: *ns 
 
-repositoryprefix: springcommunity 
 
 livenessProbe:
   httpGet:
@@ -26,10 +27,21 @@ livenessProbe:
     path: /actuator/health/liveness
   initialDelaySeconds: 90
   periodSeconds: 5
+
 readinessProbe:
   httpGet:
     path: /actuator/health/readiness
     port: 8080
   initialDelaySeconds: 15
 
+lifecycle:
+  preStop:
+    exec:
+      command: ["sh", "-c", "sleep 10"]
 
+resources:
+  limits:
+    memory: 1Gi
+  requests:
+    cpu: 2000m
+    memory: 1Gi
