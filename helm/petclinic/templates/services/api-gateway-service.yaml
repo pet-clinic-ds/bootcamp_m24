@@ -6,12 +6,10 @@ metadata:
     app: api-gateway-service
   name: api-gateway-service
   namespace: {{ .Values.namespace }}
-  
+    
 spec:
   ports:
-  - name: "http"
-    port: 80
-    targetPort: 8080
+  {{- toYaml .Values.service.ports | nindent 2 }}
   selector:
     app: api-gateway
   type: LoadBalancer
