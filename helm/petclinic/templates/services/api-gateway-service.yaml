@@ -15,5 +15,4 @@ spec:
   selector:
     app: api-gateway
   type: LoadBalancer
-status:
-  loadBalancer: {}
+

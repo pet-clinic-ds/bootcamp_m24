@@ -41,5 +41,5 @@ spec:
               name: petclinic-config
               key: wavefrontUri
         ports:
-        - containerPort: 8080
+        - containerPort: {{.Values.containerPort}}
       restartPolicy: Always

@@ -58,5 +58,5 @@ spec:
                key: mysql-root-password
 
         ports:
-        - containerPort: 8080
+        - containerPort: {{.Values.containerPort}}
       restartPolicy: Always
