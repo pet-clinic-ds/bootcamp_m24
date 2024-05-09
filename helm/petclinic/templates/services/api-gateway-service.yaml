@@ -9,7 +9,9 @@ metadata:
     
 spec:
   ports:
-  {{- toYaml .Values.service.ports | nindent 2 }}
+  - name: {{.Values.service.ports.name}}
+    port: {{.Values.service.ports.gatewayPort}} 
+    targetPort: {{.Values.service.ports.targetPort}}
   selector:
     app: api-gateway
   type: LoadBalancer

@@ -57,5 +57,5 @@ spec:
                key: mysql-root-password
 
         ports:
-        - containerPort: {{.Values.containerPort}}
+        - containerPort: {{.Values.service.ports.targetPort}}
       restartPolicy: Always

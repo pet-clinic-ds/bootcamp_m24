@@ -8,17 +8,26 @@ repositoryprefix: springcommunity
 vets-db-mysql:
   auth:
     database: service_instance_db
-  namespaceOverride: *ns  # get the value of the ns variable
+  namespaceOverride: *ns  # get the value of the namespace
+  primary:
+    persistence:
+      size: 500Mi
 
 visits-db-mysql:
   auth:
     database: service_instance_db
-  namespaceOverride: *ns  # get the value of the ns variable
+  namespaceOverride: *ns  # get the value of the namespace
+  primary:
+    persistence:
+      size: 500Mi
 
 customers-db-mysql:
   auth:
     database: service_instance_db   
-  namespaceOverride: *ns  # get the value of the ns variable
+  namespaceOverride: *ns  # get the value of the namespace
+  primary:
+    persistence:
+      size: 500Mi
 
 
 livenessProbe:
@@ -43,15 +52,14 @@ resources:
   limits:
     memory: 1Gi
   requests:
-    cpu: 2000m
-    memory: 1Gi
+    cpu: 500m
+    memory: 250Mi
 
 service:
   ports:
-  - name: "http"
-    port: 80
+    name: "http"
+    port: 8080
+    gatewayPort: 80
     targetPort: 8080
-
-containerPort: 8080
 
 restartPolicy : Always
