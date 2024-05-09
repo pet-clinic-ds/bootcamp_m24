@@ -7,7 +7,7 @@ metadata:
   name: api-gateway-deploy
   namespace: {{ .Values.namespace }}
 spec:
-  replicas: 1
+  replicas: {{.Values.replicaCount}}
   selector:
     matchLabels:
       app: api-gateway
@@ -27,12 +27,19 @@ spec:
         lifecycle:
           {{- toYaml .Values.lifecycle | nindent 10 }}
         resources:
-          {{- toYaml .Values.resources | nindent 10 }}
+          {{- toYaml .Values.resources | nindent 10 }}        
         env:
         - name: SPRING_PROFILES_ACTIVE
-          value: kubernetes
+          valueFrom: 
+            configMapKeyRef: 
+              name: petclinic-config
+              key: activeProfiles
+
         - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
-          value: proxy://wavefront-proxy.spring-petclinic.svc.cluster.local:2878
+          valueFrom: 
+            configMapKeyRef: 
+              name: petclinic-config
+              key: wavefrontUri
         ports:
         - containerPort: 8080
       restartPolicy: Always

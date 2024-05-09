@@ -7,7 +7,7 @@ metadata:
   name: visits-deploy
   namespace: {{ .Values.namespace }}
 spec:
-  replicas: 1
+  replicas: {{.Values.replicaCount}}
   selector:
     matchLabels:
       app: visits-service
@@ -30,18 +30,28 @@ spec:
           {{- toYaml .Values.resources | nindent 10 }}
         env:
         - name: SPRING_PROFILES_ACTIVE
-          value: kubernetes
+          valueFrom: 
+            configMapKeyRef: 
+              name: petclinic-config
+              key: activeProfiles
+        - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
+          valueFrom: 
+            configMapKeyRef: 
+              name: petclinic-config
+              key: wavefrontUri
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:mysql://{{.Release.Name}}-visits-db-mysql.spring-petclinic.svc.cluster.local:3306/service_instance_db?queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=visits-db
+          value: jdbc:mysql://{{.Release.Name}}-visits-db-mysql.{{ .Values.namespace }}.svc.cluster.local:3306/service_instance_db?queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=visits-db
         - name: SPRING_DATASOURCE_USERNAME
-          value: root
+          valueFrom: 
+            configMapKeyRef: 
+              name: petclinic-config
+              key: dsUsername
         - name: SPRING_DATASOURCE_PASSWORD
           valueFrom:
              secretKeyRef:
                name: {{.Release.Name}}-visits-db-mysql
                key: mysql-root-password
-        - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
-          value: proxy://wavefront-proxy.spring-petclinic.svc.cluster.local:2878
+
         ports:
         - containerPort: 8080
       restartPolicy: Always

@@ -6,6 +6,7 @@ metadata:
     app: api-gateway-service
   name: api-gateway-service
   namespace: {{ .Values.namespace }}
+  
 spec:
   ports:
   - name: "http"

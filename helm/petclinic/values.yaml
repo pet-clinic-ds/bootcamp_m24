@@ -2,23 +2,23 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 namespace: &ns spring-petclinic  # create a variable ns that contains the  value of the namespace
-
+replicaCount: 1
 repositoryprefix: springcommunity 
 
 vets-db-mysql:
   auth:
     database: service_instance_db
-  namespaceOverride: *ns  # use the ns variable to get the namespace value defined at the top 
+  namespaceOverride: *ns  # get the value of the ns variable
 
 visits-db-mysql:
   auth:
     database: service_instance_db
-  namespaceOverride: *ns 
+  namespaceOverride: *ns  # get the value of the ns variable
 
 customers-db-mysql:
   auth:
     database: service_instance_db   
-  namespaceOverride: *ns 
+  namespaceOverride: *ns  # get the value of the ns variable
 
 
 livenessProbe:
@@ -45,3 +45,13 @@ resources:
   requests:
     cpu: 2000m
     memory: 1Gi
+
+service:
+  ports:
+  - name: "http"
+    port: 80
+    targetPort: 8080
+
+containerPort: 8080
+
+restartPolicy : Always
