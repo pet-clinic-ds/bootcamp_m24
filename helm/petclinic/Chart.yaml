@@ -23,18 +23,19 @@ version: 0.1.0
 # It is recommended to use it with quotes.
 appVersion: "1.16.0"
 
+#add subcharts
 dependencies:
   - name: mysql
     version: 9.1.4 
     repository: https://charts.bitnami.com/bitnami
     alias: vets-db-mysql
 
-  # - name: mysql
-  #   version: 9.1.4 
-  #   repository: https://charts.bitnami.com/bitnami
-   # alias: visits-db-mysql
+  - name: mysql
+    version: 9.1.4 
+    repository: https://charts.bitnami.com/bitnami
+    alias: visits-db-mysql
 
-  # - name: mysql
-  #   version: 9.1.4 
-  #   repository: https://charts.bitnami.com/bitnami
-    #alias: customers-db-mysql
+  - name: mysql
+    version: 9.1.4 
+    repository: https://charts.bitnami.com/bitnami
+    alias: customers-db-mysql

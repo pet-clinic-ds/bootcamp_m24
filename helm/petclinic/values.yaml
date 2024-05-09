@@ -1,7 +1,7 @@
 # Default values for petclinic.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-namespace: spring-petclinic
+namespace: &ns spring-petclinic  # create a variable ns that contains the  value of the namespace
 replicaCount: 1
 
 image:
@@ -95,14 +95,16 @@ volumeMounts: []
 vets-db-mysql:
   auth:
     database: service_instance_db
-  namespaceOverride: spring-petclinic
+  namespaceOverride: *ns  # use the ns variable to get the namespace value defined at the top 
 
-# visits-db-mysql:
-#   auth:
-#     database: service_instance_db
+visits-db-mysql:
+  auth:
+    database: service_instance_db
+  namespaceOverride: *ns 
 
-# customers-db-mysql:
-#   auth:
-#     database: service_instance_db   
+customers-db-mysql:
+  auth:
+    database: service_instance_db   
+  namespaceOverride: *ns 
 
 #repositoryprefix: springcommunity 
