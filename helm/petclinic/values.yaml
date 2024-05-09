@@ -107,4 +107,4 @@ customers-db-mysql:
     database: service_instance_db   
   namespaceOverride: *ns 
 
-#repositoryprefix: springcommunity 
+repositoryprefix: springcommunity 
